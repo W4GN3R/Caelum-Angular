@@ -1,6 +1,7 @@
-import { Http, Headers } from '@angular/http';
 import { Component } from '@angular/core';
 import { FotoComponent } from './../foto/foto.component';
+import { FotoService } from './../foto/foto.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cadastro',
@@ -9,22 +10,37 @@ import { FotoComponent } from './../foto/foto.component';
 })
 export class CadastroComponent {
   foto: FotoComponent = new FotoComponent;
-  http: Http;
+  meuForm: FormGroup;
+  fb: FormBuilder;
+  service: FotoService;
+  mensagem: string = '';
 
-  constructor(http: Http) {
-    this.http = http;
+  constructor(service: FotoService, fb: FormBuilder) {
+    this.service = service;
+
+    this.meuForm = fb.group({
+      titulo: ['', Validators.compose(
+        [Validators.required, Validators.minLength(4)]
+      )],
+      url: ['', Validators.required],
+      descricao: ['']
+    });
   }
 
   cadastrar(event) {
     event.preventDefault();
 
-    const headers = new Headers;
-    headers.append('Content-type', 'application/json')
-
-    this.http.post('http://localhost:3000/v1/fotos', JSON.stringify(this.foto), {headers})
+    this.service.cadastra(this.foto)
       .subscribe(
-        res => console.log(res),
-        error => console.log(error)
+        res => {
+          this.foto = new FotoComponent;
+          this.mensagem = 'Foto armazenada com sucesso';
+          window.setTimeout( () => this.mensagem = '', 3000 )
+        },
+        error => {
+          console.log(error);
+          this.mensagem = 'Foto não pode ser armazenada';
+        }
       )
   }
 }

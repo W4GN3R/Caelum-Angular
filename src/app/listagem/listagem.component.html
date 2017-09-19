@@ -3,6 +3,9 @@
 </div>
 
 <div class="container text-center">
+  <div *ngIf="menssagem" class="alert alert-info">
+    <p>{{menssagem}}</p>
+  </div>
   <div class="row">
     <div class="col-md-12">
       <form>
@@ -21,6 +24,8 @@
   <div class="row">
     <app-panel *ngFor="let foto of fotos | FilterTitlePipe:myInput.value" [title]="foto.titulo" class="col-md-2">
       <app-foto [url]="foto.url" [title]="foto.titulo"></app-foto>
+      <br>
+      <button class="btn btn-danger btn-block" (click)="remove(foto)">Remover</button>
     </app-panel>
   </div>
 </div>

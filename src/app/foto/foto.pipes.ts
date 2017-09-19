@@ -5,8 +5,7 @@ import { FotoComponent } from './foto.component';
 export class FilterTitlePipe implements PipeTransform {
     transform(fotos: FotoComponent[], args: string) {
         return fotos.filter( foto => {
-            if( foto.titulo )
-                return foto.titulo.toLowerCase().includes(args.toLowerCase()) 
+            return foto.titulo.toLowerCase().includes(args.toLowerCase()) 
         });
     }
 }

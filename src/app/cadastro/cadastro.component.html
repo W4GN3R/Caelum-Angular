@@ -3,32 +3,40 @@
 </div>
 
 <div class="container">
+  <div *ngIf="mensagem" class="alert alert-info">
+    <p>{{mensagem}}</p>
+  </div>
   <div class="row">
-    <form #meuForm="ngForm" (submit)="cadastrar($event)">
+    <form [formGroup]="meuForm" (submit)="cadastrar($event)">
       <div class="col-md-6">
         <div class="form-group">
           <label>Titulo</label>
           <input
             required
-            #titulo="ngModel"
             type="text" 
             class="form-control"
             name="titulo"
-            [(ngModel)]="foto.titulo">
-            <span class="text-danger" *ngIf="titulo.invalid">
-              Título Inválido
-            </span>
+            [(ngModel)]="foto.titulo"
+            formControlName="titulo">
+            <div *ngIf="meuForm.controls.titulo.invalid">
+              <span class="text-danger" *ngIf="meuForm.controls.titulo.errors.required">
+                Título Required
+              </span>
+              <span class="text-danger" *ngIf="meuForm.controls.titulo.errors.minlength">
+                Título Muito Curto
+              </span>
+            </div>
         </div>
         <div class="form-group">
           <label>Url</label>
           <input
             required
-            #url="ngModel"
             type="text"
             class="form-control"
             name="url"
-            [(ngModel)]="foto.url">
-            <span class="text-danger" *ngIf="url.invalid">
+            [(ngModel)]="foto.url"
+            formControlName="url">
+            <span class="text-danger" *ngIf="meuForm.controls.url.invalid">
               Url Inválida
             </span>
         </div>
@@ -36,16 +44,16 @@
           <label>Descrição</label>
           <textarea
             required
-            #descricao="ngModel"
             type="text"
             class="form-control"
             name="descricao"
-            [(ngModel)]="foto.descricao"></textarea>
-            <span class="text-danger" *ngIf="descricao.invalid">
+            [(ngModel)]="foto.descricao"
+            formControlName="descricao"></textarea>
+            <span class="text-danger" *ngIf="meuForm.controls.descricao.invalid">
               Descrição Inválida
             </span>
         </div>
-        <button class="btn btn-success" [disabled]="meuForm.form.invalid">Salvar</button>
+        <button class="btn btn-success" [disabled]="meuForm.invalid">Salvar</button>
         <a [routerLink]="['']" class="btn btn-danger">voltar</a>
       </div>
       <div class="col-md-6">

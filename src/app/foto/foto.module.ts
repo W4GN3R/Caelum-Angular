@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FotoComponent } from './foto.component';
-import { FilterTitlePipe } from './foto.pipes'
+import { FotoService } from './foto.service';
+import { FilterTitlePipe } from './foto.pipes';
 
 @NgModule({
     declarations: [
@@ -11,6 +12,10 @@ import { FilterTitlePipe } from './foto.pipes'
     exports: [
         FotoComponent,
         FilterTitlePipe
+    ],
+    
+    providers: [
+        FotoService
     ]
 })
 
