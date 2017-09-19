@@ -10,7 +10,7 @@ import { Http } from '@angular/http';
 export class ListagemComponent implements OnInit {
 
     title: String = 'Caelum Pic';
-    fotos: Object[];
+    fotos: Object[] = [];
   
     constructor(http: Http) {
       http.get('http://localhost:3000/v1/fotos')

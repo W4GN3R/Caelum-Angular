@@ -1,25 +1,26 @@
 <div class="jumbotron">
   <h1 class="text-center">{{title}}</h1>
 </div>
-<div class="container">
+
+<div class="container text-center">
   <div class="row">
     <div class="col-md-12">
       <form>
-        <div class="input-group-btn">
+        <div class="input-group">
           <span class="input-group-btn">
             <a [routerLink]="['/cadastro']" class="btn btn-primary">
-              nova foto
+              Nova foto
             </a>
           </span>
+          <input #myInput (keyup)="0" type="text" class="form-control" placeholder="filtrar pelo título da foto">
         </div>
       </form>
     </div>
   </div>
   <br>
   <div class="row">
-    <app-panel *ngFor="let foto of fotos" [title]="foto.titulo" class="col-md-2">
+    <app-panel *ngFor="let foto of fotos | FilterTitlePipe:myInput.value" [title]="foto.titulo" class="col-md-2">
       <app-foto [url]="foto.url" [title]="foto.titulo"></app-foto>
     </app-panel>
   </div>
-
 </div>

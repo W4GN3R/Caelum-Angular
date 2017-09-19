@@ -1,3 +1,56 @@
-<p>
-  cadastro works!
-</p>
+<div class="jumbotron">
+  <h1 class="text-center">Cadastro de fotos</h1>
+</div>
+
+<div class="container">
+  <div class="row">
+    <form #meuForm="ngForm" (submit)="cadastrar($event)">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Titulo</label>
+          <input
+            required
+            #titulo="ngModel"
+            type="text" 
+            class="form-control"
+            name="titulo"
+            [(ngModel)]="foto.titulo">
+            <span class="text-danger" *ngIf="titulo.invalid">
+              Título Inválido
+            </span>
+        </div>
+        <div class="form-group">
+          <label>Url</label>
+          <input
+            required
+            #url="ngModel"
+            type="text"
+            class="form-control"
+            name="url"
+            [(ngModel)]="foto.url">
+            <span class="text-danger" *ngIf="url.invalid">
+              Url Inválida
+            </span>
+        </div>
+        <div class="form-group">
+          <label>Descrição</label>
+          <textarea
+            required
+            #descricao="ngModel"
+            type="text"
+            class="form-control"
+            name="descricao"
+            [(ngModel)]="foto.descricao"></textarea>
+            <span class="text-danger" *ngIf="descricao.invalid">
+              Descrição Inválida
+            </span>
+        </div>
+        <button class="btn btn-success" [disabled]="meuForm.form.invalid">Salvar</button>
+        <a [routerLink]="['']" class="btn btn-danger">voltar</a>
+      </div>
+      <div class="col-md-6">
+        <app-preview [img]="foto.url" [title]="foto.titulo" [description]="foto.descricao"></app-preview>
+      </div>
+    </form>
+  </div>
+</div>
