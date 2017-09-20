@@ -23,7 +23,9 @@
   <br>
   <div class="row">
     <app-panel *ngFor="let foto of fotos | FilterTitlePipe:myInput.value" [title]="foto.titulo" class="col-md-2">
-      <app-foto [url]="foto.url" [title]="foto.titulo"></app-foto>
+      <a [routerLink]="['cadastro', foto._id]">
+        <app-foto [url]="foto.url" [title]="foto.titulo"></app-foto>
+      </a>
       <br>
       <button class="btn btn-danger btn-block" (click)="remove(foto)">Remover</button>
     </app-panel>
